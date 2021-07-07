@@ -1,6 +1,10 @@
-package com.research.nlp.grammar.parser;
+package com.research.nlp.grammar.parser.api;
 
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
 public class EarleyParser {
@@ -11,7 +15,7 @@ public class EarleyParser {
     public EarleyParser() {
     }
 
-    public EarleyParser(Grammar grammar) {
+    public EarleyParser(Grammar grammar) throws IOException {
         this.grammar = grammar;
     }
 
@@ -34,12 +38,15 @@ public class EarleyParser {
         RHS[] rhs = grammar.getRHS(lhs);
         int i = s.getI();
         int j = s.getJ();
-        for (int a = 0; a < rhs.length; a++) {
-            String[] terms = rhs[a].getTerms();
-            if (terms.length == 1 && j < sentence.length && terms[0].compareToIgnoreCase(sentence[j]) == 0) {
-                State ns = new State(null, lhs, rhs[a].addDotLast(), j, j + 1, null);
-                charts[j + 1].addState(ns);
-            }
+        if (j >= sentence.length) {
+            return;
+        }
+        Set<String> meanings = grammar.getDictionaryTerminal().get(sentence[j]);
+        if (meanings.contains(lhs)) {
+            String[] word = {sentence[j]};
+            RHS rhs1 = new RHS(word);
+            State ns = new State(null, lhs, rhs1.addDotLast(), j, j + 1, null);
+            charts[j + 1].addState(ns);
         }
     }
 
@@ -55,8 +62,12 @@ public class EarleyParser {
         }
     }
 
-    public boolean parseSentence(String[] s) {
-        sentence = s;
+    public boolean parseSentence(String[] words) {
+        boolean isValidWord = Stream.of(words).allMatch(word -> grammar.getDictionaryTerminal().containsKey(word));
+        if(!isValidWord) {
+            throw new RuntimeException("Input string exist character invalid");
+        }
+        sentence = words;
         charts = new Chart[sentence.length + 1];
         for (int i = 0; i < charts.length; i++) charts[i] = new Chart();
         String[] start1 = {"@", "S"};

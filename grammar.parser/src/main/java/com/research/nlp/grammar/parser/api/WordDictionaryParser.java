@@ -1,4 +1,4 @@
-package com.research.nlp.grammar.parser;
+package com.research.nlp.grammar.parser.api;
 
 import com.sun.istack.internal.NotNull;
 import org.springframework.core.io.ClassPathResource;
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class WordDictionaryParser {
-    public Map<String, List<String>> getTerminateWord() throws IOException {
-        Map<String, List<String>> wordDictionary = new HashMap<>();
+    public Map<String, Set<String>> getTerminateWord() throws IOException {
+        Map<String, Set<String>> wordDictionary = new HashMap<>();
         InputStream stream = new ClassPathResource("Penn_english.txt").getInputStream();
         try (Scanner scanner = new Scanner(stream)) {
             while (scanner.hasNextLine()) {
@@ -27,15 +27,15 @@ public class WordDictionaryParser {
         return wordDictionary;
     }
 
-    public Set<String> getPOS(@NotNull Map<String, List<String>> dictionary) {
+    public Set<String> getPOS(@NotNull Map<String, Set<String>> dictionary) {
         return dictionary.entrySet().stream() //
                 .map(Map.Entry::getValue) //
-                .flatMap(List::stream) //
+                .flatMap(Set::stream) //
                 .collect(Collectors.toSet());
     }
 
-    private List<String> getWordTags(String word) {
-        List<String> wordTags = new ArrayList<>();
+    private Set<String> getWordTags(String word) {
+        Set<String> wordTags = new HashSet<>();
         if (Objects.nonNull(word)) {
             String[] tags = word.split("#");
             for (String tag : tags) {
@@ -43,7 +43,7 @@ public class WordDictionaryParser {
             }
             return wordTags;
         }
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 
     private String getTag(@NonNull String tag) {

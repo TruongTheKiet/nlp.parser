@@ -1,4 +1,4 @@
-package com.research.nlp.grammar.parser;
+package com.research.nlp.grammar.parser.api;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;

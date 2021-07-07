@@ -1,4 +1,4 @@
-package com.research.nlp.grammar.parser;
+package com.research.nlp.grammar.parser.api;
 
 import java.util.List;
 import java.util.Vector;

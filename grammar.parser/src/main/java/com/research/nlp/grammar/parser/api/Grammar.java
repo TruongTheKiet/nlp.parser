@@ -1,11 +1,14 @@
-package com.research.nlp.grammar.parser;
+package com.research.nlp.grammar.parser.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class Grammar {
@@ -17,7 +20,7 @@ public class Grammar {
 
     private Map<String, RHS[]> Rules = new HashMap<>();
     private Set<String> POS = new HashSet<>();
-    private Map<String, List<String>> dictionaryTerminal = new HashMap<>();
+    private Map<String, Set<String>> dictionaryTerminal = new HashMap<>();
 
     @PostConstruct
     public void initData() throws IOException {
@@ -55,11 +58,11 @@ public class Grammar {
         this.POS = POS;
     }
 
-    public Map<String, List<String>> getDictionaryTerminal() {
+    public Map<String, Set<String>> getDictionaryTerminal() {
         return dictionaryTerminal;
     }
 
-    public void setDictionaryTerminal(Map<String, List<String>> dictionaryTerminal) {
+    public void setDictionaryTerminal(Map<String, Set<String>> dictionaryTerminal) {
         this.dictionaryTerminal = dictionaryTerminal;
     }
 }
