@@ -80,8 +80,8 @@ public class EarleyParser {
                 String next_term = st.getAfterDot();
                 if (st.isDotLast()) /*State's RHS = ... @*/
                     completer(st);
-                else if (grammar.isPartOfSpeech(next_term)) /*RHS = ... @ A ..., where A is a part of speech.*/
-                    scanner(st);
+                else if (grammar.isPartOfSpeech(next_term))
+                    scanner(st); /*RHS = ... @ A ..., where A is a part of speech.*/
                 else
                     predictor(st); /*A is NOT a part of speech.*/
             }

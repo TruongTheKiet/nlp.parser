@@ -1,7 +1,14 @@
 S>NP VP
-VP>V NP
-NP>Conj NP
-NP>N NP
-NP>N
+S>VP
 NP>Pron
-NP>N Conj VP
+NP>N
+NP>Det Nominal
+Nominal>N
+Nominal>Nominal N
+Nominal>Nominal PP
+VP>V
+VP>V NP
+VP>V NP PP
+VP>V PP
+VP>VP PP
+PP>Prep NP

@@ -1,3 +1,14 @@
 S>NP VP
+S>VP
+NP>Pron
 NP>N
-VP>V N
+NP>Det Nominal
+Nominal>N
+Nominal>Nominal N
+Nominal>Nominal PP
+VP>V
+VP>V NP
+VP>V NP PP
+VP>V PP
+VP>VP PP
+PP>Prep NP

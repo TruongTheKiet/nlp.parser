@@ -23,7 +23,7 @@ public class ParserService {
 
     public String process(@NonNull String inputString) throws IOException {
         inputString = inputString.trim();
-        String[] words = inputString.split(" ");
+        String[] words = inputString.toLowerCase().split(" ");
         EarleyParser parser = new EarleyParser(grammar);
         return internalProcess(words, parser);
     }
@@ -36,11 +36,6 @@ public class ParserService {
             logger.info((charts[i].toString()));
         }
 
-        List<State> allStates = new ArrayList<>();
-        for (int i = 0; i < charts.length; i++) {
-            allStates.addAll(charts[i].getAllStates());
-        }
-
         List<State> roots = charts[charts.length - 1].getAllStates().stream() //
                 .filter(state -> "$".equals(state.getLHS())) //
                 .collect(Collectors.toList());
@@ -51,7 +46,11 @@ public class ParserService {
         for (State root : roots) {
             retrieveTree(root, res);
         }
-        return String.join("", res);
+        String trees = String.join("", res);
+        System.out.println("-----------------Tree start---------------------");
+        System.out.println(trees);
+        System.out.println("-----------------Tree end------------------------");
+        return trees;
     }
 
     private void retrieveTree(State root, List<String> result) {
