@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class Grammar {
     private Map<String, Set<String>> dictionaryTerminal = new HashMap<>();
 
     @PostConstruct
-    public void initData() throws IOException {
+    public void initData() throws IOException, URISyntaxException {
         this.Rules = grammarService.getGrammar();
         this.dictionaryTerminal = wordDictionaryParser.getTerminateWord();
         this.POS = wordDictionaryParser.getPOS(this.dictionaryTerminal);

@@ -1,6 +1,5 @@
 package com.research.nlp.grammar.parser.api;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class WordDictionaryParser {
         return wordDictionary;
     }
 
-    public Set<String> getPOS(@NotNull Map<String, Set<String>> dictionary) {
+    public Set<String> getPOS(@NonNull Map<String, Set<String>> dictionary) {
         return dictionary.entrySet().stream() //
                 .map(Map.Entry::getValue) //
                 .flatMap(Set::stream) //

@@ -1,9 +1,12 @@
 package com.research.nlp.grammar.parser.api;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -11,9 +14,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class GrammarService {
+    @Value("${grammar.is-read-default:true}")
+    private boolean isReadEmbeddedGrammar;
+    @Value("${grammar.grammar-file-path:./Grammar.txt}")
+    private String grammarFilePath;
+
     public Map<String, RHS[]> getGrammar() throws IOException {
         Map<String, List<String[]>> wordDictionary = new HashMap<>();
-        InputStream stream = new ClassPathResource("Grammar.txt").getInputStream();
+        InputStream stream = null;
+        if(isReadEmbeddedGrammar){
+            stream = new ClassPathResource("Grammar.txt").getInputStream();
+        }
+        else{
+            File file = new File(grammarFilePath);
+            stream = new FileInputStream(file);
+        }
         try (Scanner scanner = new Scanner(stream)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

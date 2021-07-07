@@ -32,4 +32,17 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<mainClass>com.research.nlp.grammar.parser.Application</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -1,2 +1,6 @@
 server:
   port: 7080
+  host: http://localhost
+grammar:
+  is-read-default: true
+  grammar-file-path: ./Grammar.txt
