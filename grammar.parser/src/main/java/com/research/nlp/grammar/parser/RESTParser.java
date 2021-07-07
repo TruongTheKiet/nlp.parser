@@ -15,8 +15,11 @@ public class RESTParser {
     @Autowired
     private ParserService parserService;
 
+    @Autowired
+    private GrammarService grammarService;
+
     @GetMapping("/parse")
-    public Map<String, List<String>> parse() throws IOException {
+    public String parse() throws IOException {
         return this.parserService.process();
     }
 }

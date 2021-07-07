@@ -1,5 +1,6 @@
 package com.research.nlp.grammar.parser;
 
+import com.sun.istack.internal.NotNull;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class WordDictionaryParser {
@@ -23,6 +25,13 @@ public class WordDictionaryParser {
             }
         }
         return wordDictionary;
+    }
+
+    public Set<String> getPOS(@NotNull Map<String, List<String>> dictionary) {
+        return dictionary.entrySet().stream() //
+                .map(Map.Entry::getValue) //
+                .flatMap(List::stream) //
+                .collect(Collectors.toSet());
     }
 
     private List<String> getWordTags(String word) {
