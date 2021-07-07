@@ -1,6 +1,6 @@
 server:
-  port: 7080
-  host: http://localhost
+  port: 7080 #port run BE API
+  host: http://localhost # host hiện tại đang chạy back end API
 grammar:
-  is-read-default: false
-  grammar-file-path: ./Grammar.txt
+  is-read-default: false #Đọc giá trị grammar đã được đóng gói trong jar hay không
+  grammar-file-path: ./Grammar.txt #khi giá trị field is-read-default là true thí không cần set field này.

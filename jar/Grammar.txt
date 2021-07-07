@@ -1,3 +1,7 @@
 S>NP VP
+VP>V NP
+NP>Conj NP
+NP>N NP
 NP>N
-VP>V
+NP>Pron
+NP>N Conj VP
